@@ -14,3 +14,8 @@ ul.order_details{
 .orange{
   color: orange;
 }
+
+#map {
+    width: 600px;
+    height: 400px;
+}

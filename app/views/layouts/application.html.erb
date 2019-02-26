@@ -8,6 +8,8 @@
     <%= stylesheet_link_tag    'index' %>
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnJKUqIPs-LHRG2LjYm_UTHXYsvb0qCEA&callback=initMap"
+    async defer></script>
   </head>
 
   <body>
@@ -25,7 +27,6 @@
           <%= error %>
         <% end %>
     <% end %>
-
     <%= yield %>
   </body>
 </html>
