@@ -1,0 +1,11 @@
+<% unless current_user.orders.empty? %>
+    <% current_user.orders.each do |order| %>
+        Order Number: <a href="<%= order_url(order) %>"><%= order.order_number %></a>
+        Vendor Name: <%= order.vendor.name %>
+        Tracking Number: <%= order.tracking_number%>
+        Address: <%= order.address %>
+        Delivery Status: <%= order.delivery_status.delivered? ? "Delivered!" : order.delivery_status.timeline %>
+    <% end %>
+<% end %>
+
+<a href="<%= new_order_url %>">Add order</a>

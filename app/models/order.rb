@@ -26,6 +26,6 @@ class Order < ApplicationRecord
     class_name: 'DeliveryStatus'
 
   belongs_to :user,
-    foreign_key: :orderer_id,
+    foreign_key: :user_id,
     class_name: 'User'
 end

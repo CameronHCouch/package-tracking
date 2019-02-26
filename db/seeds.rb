@@ -11,13 +11,14 @@ Vendor.destroy_all
 Order.destroy_all
 DeliveryStatus.destroy_all
 
-User.create!(username: 'demo', password: 'password')
+demo = User.create!(username: 'demo', password: 'password')
+admin = User.create!(username: 'admin', password: 'password')
 
-500.times do |_|
+20.times do |_|
   Vendor.create!(name: Faker::Company.unique.name)
 end
 
-1000.times do |_|
+20.times do |_|
   Order.create!(
     order_number: Faker::Number.unique.number(5),
     vendor_id: Vendor.all.sample.id,
@@ -28,6 +29,6 @@ end
                         timeline: 'normal',
                         normal_time: 3
                         ).id,
-    orderer_id: User.first.id
+    orderer_id: [demo.id, admin.id].sample
   )
 end
