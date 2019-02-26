@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
 
   def index
     # debugger
-    @orders = Order.all
+    @orders = Order.all.where(delivered: false)
   end
 
   def show
@@ -17,8 +17,14 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     @order.user_id = current_user.id
-    @order.vendor_id = params[:order][:vendor].id
-    @order.delivery_status_id = DeliveryStatus.new(normal_time: 3);
+
+    vendor = Vendor.find_by(name: params[:order][:vendor])
+    unless vendor
+      vendor = Vendor.create!(name: params[:order][:vendor])
+    end
+    @order.vendor_id = vendor.id
+    @order.delivery_status_id = DeliveryStatus.create!(normal_time: 3).id;
+
     if @order.save
       redirect_to order_url(@order)
     else
