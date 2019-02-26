@@ -16,7 +16,7 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
-    @order.orderer_id = current_user.id
+    @order.user_id = current_user.id
     @order.vendor_id = params[:order][:vendor].id
     @order.delivery_status_id = DeliveryStatus.new(normal_time: 3);
     if @order.save

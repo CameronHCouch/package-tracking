@@ -8,14 +8,14 @@
 #  tracking_number    :integer          not null
 #  address            :string           not null
 #  delivery_status_id :integer
-#  orderer_id         :integer
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  user_id            :integer
 #
 
 class Order < ApplicationRecord
   validates :order_number, :tracking_number, presence: true, uniqueness: true 
-  validates :vendor_id, :address, :delivery_status_id, :orderer_id, presence: true
+  validates :vendor_id, :address, :delivery_status_id, :user_id, presence: true
 
   belongs_to :vendor,
     foreign_key: :vendor_id,

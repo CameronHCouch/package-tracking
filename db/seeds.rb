@@ -25,10 +25,10 @@ end
     tracking_number: Faker::Number.unique.number(9),
     address: Faker::Address.street_address,
     delivery_status_id: DeliveryStatus.create!(
-                        delivered?: false,
+                        delivered?: [true, false].sample,
                         timeline: 'normal',
                         normal_time: 3
                         ).id,
-    orderer_id: [demo.id, admin.id].sample
+    user_id: [demo.id, admin.id].sample
   )
 end
