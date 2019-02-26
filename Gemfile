@@ -54,6 +54,8 @@ group :development do
   gem 'pry-rails'
   gem 'annotate'
   gem 'jquery-rails'
+  # convert addresses into latitude and longitude for Google Maps
+  gem 'geocoder'
 end
 
 group :test do

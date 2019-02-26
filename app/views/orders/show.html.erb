@@ -4,7 +4,7 @@
   <li>Tracking #: <%= @order.tracking_number%></li>
   <li>Address: <%= @order.address %></li>
   <li>Delivery Status: <span class="<% 
-                        case order.delivery_status.timeline.upcase
+                        case @order.delivery_status.timeline.upcase
                         when 'NORMAL' %>
                             ">NORMAL</span> 
                         <% when 'NOT NORMAL' %>

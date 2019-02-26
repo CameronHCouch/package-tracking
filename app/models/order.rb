@@ -17,6 +17,9 @@ class Order < ApplicationRecord
   validates :order_number, :tracking_number, presence: true, uniqueness: true 
   validates :vendor_id, :address, :delivery_status_id, :user_id, presence: true
 
+  geocoded_by :address
+  after_validation :geocode
+
   belongs_to :vendor,
     foreign_key: :vendor_id,
     class_name: 'Vendor'
