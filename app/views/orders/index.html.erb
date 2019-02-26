@@ -1,15 +1,26 @@
 <% unless current_user.orders.empty? %>
   <ul class="no_bullet">
   <% current_user.orders.each do |order| %>
-    <li>
-      <ul class="order_details">
-        <li>Order #: <a href="<%= order_url(order) %>"><%= order.order_number %></a></li>
-        <li>Vendor Name: <%= order.vendor.name %></li>
-        <li>Tracking #: <%= order.tracking_number%></li>
-        <li>Address: <%= order.address %></li>
-        <li>Delivery Status: <%= order.delivery_status.delivered? ? "Delivered!" : order.delivery_status.timeline.upcase %></li>
-      </ul>
-    </li>
+    <% unless order.delivery_status.delivered? == true %>
+      <li>
+        <ul class="order_details">
+          <li>Order #: <a href="<%= order_url(order) %>"><%= order.order_number %></a></li>
+          <li>Vendor Name: <%= order.vendor.name %></li>
+          <li>Tracking #: <%= order.tracking_number%></li>
+          <li>Address: <%= order.address %></li>
+          <li>Delivery Status:  <span class="<% 
+                                case order.delivery_status.timeline.upcase
+                                when 'NORMAL' %>
+                                    ">NORMAL</span> 
+                                <% when 'NOT NORMAL' %>
+                                  orange">NOT NORMAL</span>
+                                <% when 'VERY LATE' %>  
+                                  red">VERY LATE</span>
+                                <% end %>
+          </li>
+        </ul>
+      </li>
+    <% end %>
   <% end %>
   </ul>
 <% end %>

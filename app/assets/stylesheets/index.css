@@ -6,3 +6,11 @@ ul.order_details{
   margin: 10px;
   list-style: square;
 }
+
+.red{
+  color: red;
+}
+
+.orange{
+  color: orange;
+}

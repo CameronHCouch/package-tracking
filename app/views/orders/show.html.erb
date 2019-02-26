@@ -1,0 +1,18 @@
+<ul class="order_details">
+  <li>Order #: <%= @order.order_number %></li>
+  <li>Vendor Name: <%= @order.vendor.name %></li>
+  <li>Tracking #: <%= @order.tracking_number%></li>
+  <li>Address: <%= @order.address %></li>
+  <li>Delivery Status: <span class="<% 
+                        case order.delivery_status.timeline.upcase
+                        when 'NORMAL' %>
+                            ">NORMAL</span> 
+                        <% when 'NOT NORMAL' %>
+                          orange">NOT NORMAL</span>
+                        <% when 'VERY LATE' %>  
+                          red">VERY LATE</span>
+                        <% end %>
+  </li>
+</ul>
+
+<a href="<%= orders_url %>">Back to Index</a>
