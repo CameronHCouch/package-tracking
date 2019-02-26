@@ -1,1 +1,4 @@
+# Ignore temp and dev log files
 /tmp
+/log
+/log/development.log

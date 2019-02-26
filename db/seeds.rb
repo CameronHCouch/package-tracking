@@ -5,3 +5,29 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+User.destroy_all
+Vendor.destroy_all
+Order.destroy_all
+DeliveryStatus.destroy_all
+
+User.create!(username: 'demo', password: 'password')
+
+500.times do |_|
+  Vendor.create!(name: Faker::Company.unique.name)
+end
+
+1000.times do |_|
+  Order.create!(
+    order_number: Faker::Number.unique.number(5),
+    vendor_id: Vendor.all.sample.id,
+    tracking_number: Faker::Number.unique.number(9),
+    address: Faker::Address.street_address,
+    delivery_status_id: DeliveryStatus.create!(
+                        delivered?: false,
+                        timeline: 'normal',
+                        normal_time: 3
+                        ).id,
+    orderer_id: User.first.id
+  )
+end

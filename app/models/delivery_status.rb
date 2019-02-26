@@ -11,12 +11,12 @@
 #
 
 class DeliveryStatus < ApplicationRecord
-  validates :delivered?, presence: true
+  validates_inclusion_of :delivered?, { in: [true, false] }
   validates :timeline, inclusion: { in: ['normal','not normal', 'very late'] }, presence: true
 
-  has_many :orders
-  has_many :vendors, through: :orders, source: :vendor
-  has_many :users, through: :orders, source: :user
+  has_one :order
+  has_one :vendor, through: :orders, source: :vendor
+  has_one :user, through: :orders, source: :user
 end
 
 
