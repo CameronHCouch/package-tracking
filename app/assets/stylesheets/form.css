@@ -17,6 +17,25 @@ form.session-form{
   margin-top: 30px;
 }
 
+form.signup-form{
+  width: 300px;
+  height: 300px;
+  position: fixed;
+  left: 50%;
+  top: 333px;
+  transform: translate(-50%, -50%);
+  padding: 32px 32px 32px 16px;
+  border: 2px solid #3c6992;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px #ddd;
+  background-color: white;
+  margin-top: 30px;
+}
+
 .error{
   margin-top: 15px;
   margin-bottom: -10px;
@@ -24,38 +43,9 @@ form.session-form{
   font-weight: 700;
 }
 
-/* .demo-btn{
-  display: block;
-  box-sizing: content-box;
-  background-color: #611f69;
-  max-width: 375.062px;
-  width: 100%;
-  color: white;
-  font-weight: 700;
-  margin-bottom: 5px;
-  border-radius: 4px;
-  padding: 13px 0px 37px 0px;
-  font-size: 20px;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-} */
-
-/* .demo-btn:hover{
-  background-color: #4a154b;
-}
-
-.demo-btn:focus{
-  outline-color: rgb(156, 114, 161);
-  outline-offset: 3px;
-  outline-style: dotted;
-  outline-width: 1.5px;
-} */
-
 .session-btn{
   box-sizing: content-box;
   background-color: #3c6992;
-  width: 100%;
   color: white;
   margin-top: 17px;
   margin-bottom: 5px;
@@ -70,28 +60,8 @@ form.session-form{
 
 .session-btn:hover{
   background-color: #0c8566;
+  cursor: pointer;
 }
-
-.signup-btn{
-  box-sizing: content-box;
-  background-color:#0c8566;
-  width: 100%;
-  color: white;
-  margin-top: 17px;
-  margin-bottom: 5px;
-  border-radius: 4px;
-  font-size: 20px;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  padding: 12.5px 0px;
-  font-weight: 700;
-}
-
-/* form{
-  display: flex;
-  flex-direction: column;
-} */
 
 input[type=password], input[type=text]{
   width: 200px;
@@ -123,4 +93,63 @@ aside{
 header{
   display: flex;
   justify-content: space-between;
+}
+
+.order-form{
+  width: 300px;
+  height: 400px;
+  position: fixed;
+  left: 50%;
+  top: 333px;
+  transform: translate(-50%, -50%);
+  padding: 32px 32px 32px 16px;
+  border: 2px solid #3c6992;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px #ddd;
+  background-color: white;
+  margin-top: 30px;
+}
+
+.order-btn{
+  box-sizing: content-box;
+  background-color: #3c6992;
+  min-width: 200px;
+  color: white;
+  margin-top: 17px;
+  margin-bottom: 5px;
+  border-radius: 4px;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding: 15px 0px 35px 0px;
+  font-weight: 700;
+}
+
+.order-btn:hover{
+  background-color: #0c8566;
+  cursor: pointer;
+}
+
+.nav-btn{
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  width: 140px;
+  box-sizing: content-box;
+  background-color: #aab3ba;
+  color: white;
+  border-radius: 4px;
+  font-size: 20px;
+  padding: 15px 15px 15px 15px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.nav-btn:hover{
+  background-color: #0c8566;
 }

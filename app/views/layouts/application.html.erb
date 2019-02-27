@@ -14,10 +14,10 @@
     <header>
       <% if logged_in? %>
       Welcome, <%= current_user.username %>!
-      <form action="<%= session_url %>" method="post">
+      <form action="<%= session_url %>" method="post" class="signout">
         <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
         <input type="hidden" name="_method" value="delete">
-        <input type="submit" value="Sign Out">
+        <input type="submit" value="Sign Out" class="signout-btn">
       </form>
       <% end %>
     </header>

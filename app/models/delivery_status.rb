@@ -15,8 +15,8 @@ class DeliveryStatus < ApplicationRecord
   validates_inclusion_of :delivered?, { in: [true, false] }
   validates :timeline, inclusion: { in: ['normal','not normal', 'very late'] }, presence: true
 
-  # before_save :update_normal_time 
-  # before_update :update_timeline, :set_date_delivered
+  after_initialize :update_normal_time 
+  before_update :update_timeline, :set_date_delivered
 
   has_one :order
   has_one :vendor, through: :order, source: :vendor
@@ -31,7 +31,6 @@ class DeliveryStatus < ApplicationRecord
   end
 
   def total_num_orders
-    debugger
     self.vendor.orders.count
   end
 
@@ -44,16 +43,15 @@ class DeliveryStatus < ApplicationRecord
   def update_normal_time
     if self.delivered? && self.date_delivered
       if self.normal_time.nil?
-        self.update_column(normal_time: self.shipping_time_in_days)
+        self.update!(normal_time: self.shipping_time_in_days)
       else
-        self.update_column(normal_time: self.normal_time + ((self.shipping_time_in_days - self.normal_time) / (Order.all.count + 1))) 
+        self.update!(normal_time: self.normal_time + ((self.shipping_time_in_days - self.normal_time) / (Order.all.count + 1))) 
       end
     end
   end
 
 
   def update_timeline
-    puts 'anybody here?'
     if self.normal_time && !self.delivered?
       days_elapsed = (Time.now - self.created_at) / 60 / 60 /24
       if days_elapsed > (self.normal_time * 2)

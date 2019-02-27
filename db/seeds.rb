@@ -11,26 +11,28 @@ Vendor.destroy_all
 Order.destroy_all
 DeliveryStatus.destroy_all
 
-demo = User.create!(username: 'demo', password: 'password')
-admin = User.create!(username: 'admin', password: 'password')
+demo = User.create!(username: 'Demo', password: 'password')
+admin = User.create!(username: 'Admin', password: 'password')
 
-address1 = '30 Westminster Rd, Brooklyn, NY'
+address1 = '30 Westminster Rd, Brooklyn, NY 11218'
 address2 = '22 W 38th St, New York, NY 10018'
+address3 = 'Times Square, NYC'
 
 vendor_hash = {}
 
-1.times do |idx|
+3.times do |idx|
   vendor = Vendor.create!(name: Faker::Company.unique.name)
   vendor_hash[idx] = vendor.id
 end
 
 def create_delivery_status
   new_ds = DeliveryStatus.new(
-                    delivered?: true,
+                    delivered?: [true, false].sample,
                     timeline: ['normal', 'not normal', 'very late'].sample,
                     )
   if new_ds.delivered?
     new_ds.date_delivered = Time.now
+    new_ds.normal_time = 3
     case new_ds.timeline
     when 'normal'
       new_ds.created_at = new_ds.date_delivered - (3600 * 24 * 3)
@@ -46,13 +48,13 @@ def create_delivery_status
 end
 
 
-3.times do |idx|
+5.times do |idx|
   Order.create(
     order_number: rand(10000),
     # use vendor hash to prevent large nested loops
-    vendor_id: vendor_hash[0],
+    vendor_id: vendor_hash[rand(3)],
     tracking_number: rand(100000000),
-    address: address1,
+    address: [address1, address2, address3].sample,
     delivery_status_id: create_delivery_status.id,
     user_id: demo.id
   )

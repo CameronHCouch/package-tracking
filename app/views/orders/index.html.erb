@@ -1,4 +1,6 @@
 <div id="map"></div>
+
+<section>
 <% markers = [] %>
 <% unless current_user.orders.empty? %>
   <ul class="no_bullet">
@@ -28,8 +30,8 @@
   </ul>
 <% end %>
 
-<a href="<%= new_order_url %>">Add order</a>
-
+<div><a href="<%= new_order_url %>" class="nav-btn add-order-btn">Add order</a></div>
+</section>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnJKUqIPs-LHRG2LjYm_UTHXYsvb0qCEA&callback=initMap"
 async defer></script>
 

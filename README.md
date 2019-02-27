@@ -1,3 +1,3 @@
 # Package Tracking App
 
-A package tracking dashboard built using Ruby on Rails, React, and Redux.
+A package tracking dashboard built using Ruby on Rails.
