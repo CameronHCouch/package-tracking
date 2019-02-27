@@ -4,7 +4,7 @@
   <ul class="no_bullet">
   <% current_user.orders.each do |order| %>
     <% unless order.delivery_status.delivered? == true %>
-    <% markers.push([order.latitude,order.longitude]) %>
+    <% markers.push([order.latitude,order.longitude]) if order.latitude %>
       <li>
         <ul class="order_details">
           <li>Order #: <a href="<%= order_url(order) %>"><%= order.order_number %></a></li>
@@ -29,6 +29,10 @@
 <% end %>
 
 <a href="<%= new_order_url %>">Add order</a>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnJKUqIPs-LHRG2LjYm_UTHXYsvb0qCEA&callback=initMap"
+async defer></script>
+
 <script>
   var map;
   function initMap() {
@@ -48,7 +52,7 @@
     }
 
     markers.forEach((address) => {
-      addMarker(address[0], address[1])
+        addMarker(address[0], address[1])
     })
   }
 </script>

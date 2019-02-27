@@ -15,8 +15,8 @@ class DeliveryStatus < ApplicationRecord
   validates_inclusion_of :delivered?, { in: [true, false] }
   validates :timeline, inclusion: { in: ['normal','not normal', 'very late'] }, presence: true
 
-  before_save :update_normal_time 
-  before_update :update_timeline, :set_date_delivered
+  # before_save :update_normal_time 
+  # before_update :update_timeline, :set_date_delivered
 
   has_one :order
   has_one :vendor, through: :order, source: :vendor
