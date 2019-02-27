@@ -17,21 +17,43 @@ admin = User.create!(username: 'admin', password: 'password')
 address1 = '30 Westminster Rd, Brooklyn, NY'
 address2 = '22 W 38th St, New York, NY 10018'
 
-50.times do |_|
-  Vendor.create!(name: Faker::Company.unique.name)
+vendor_hash = {}
+
+1.times do |idx|
+  vendor = Vendor.create!(name: Faker::Company.unique.name)
+  vendor_hash[idx] = vendor.id
 end
 
-200.times do |idx|
-  puts "#{idx}"
+def create_delivery_status
+  new_ds = DeliveryStatus.new(
+                    delivered?: true,
+                    timeline: ['normal', 'not normal', 'very late'].sample,
+                    )
+  if new_ds.delivered?
+    new_ds.date_delivered = Time.now
+    case new_ds.timeline
+    when 'normal'
+      new_ds.created_at = new_ds.date_delivered - (3600 * 24 * 3)
+    when 'not normal'
+      new_ds.created_at = new_ds.date_delivered - (3600 * 24 * 4.5)
+    when 'very late'
+      new_ds.created_at = new_ds.date_delivered - (3600 * 24 * 6)
+    end
+  end
+
+  new_ds.save!
+  new_ds
+end
+
+
+3.times do |idx|
   Order.create(
-    order_number: Faker::Number.unique.number(5),
-    vendor_id: Vendor.all.sample.id,
-    tracking_number: Faker::Number.unique.number(9),
-    address: [address1, address2].sample,
-    delivery_status_id: DeliveryStatus.create!(
-                        delivered?: [true, false].sample,
-                        timeline: ['normal', 'not normal', 'very late'].sample
-                        ).id,
-    user_id: [demo.id, admin.id].sample
+    order_number: rand(10000),
+    # use vendor hash to prevent large nested loops
+    vendor_id: vendor_hash[0],
+    tracking_number: rand(100000000),
+    address: address1,
+    delivery_status_id: create_delivery_status.id,
+    user_id: demo.id
   )
 end

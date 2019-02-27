@@ -15,19 +15,56 @@ class DeliveryStatus < ApplicationRecord
   validates_inclusion_of :delivered?, { in: [true, false] }
   validates :timeline, inclusion: { in: ['normal','not normal', 'very late'] }, presence: true
 
-  after_save :calculate_normal_time
+  before_save :update_normal_time 
+  before_update :update_timeline, :set_date_delivered
 
   has_one :order
-  has_one :vendor, through: :orders, source: :vendor
-  has_one :user, through: :orders, source: :user
+  has_one :vendor, through: :order, source: :vendor
+  has_one :user, through: :order, source: :user
+
+# TO DO: figure out when callback should run
+# TO DO: find out how to dynamically change normal time
+
+
+  def shipping_time_in_days
+    (self.date_delivered - self.created_at) / 60 / 60 / 24
+  end
+
+  def total_num_orders
+    debugger
+    self.vendor.orders.count
+  end
 
   private
 
-  def calculate_normal_time
-    if self.delivered?
-      delivery_time = self.created_at - self.delivered_at
-      
-      self.normal_time = self.normal_time + (()) 
+  def set_date_delivered
+    self.date_delivered = Time.now if self.delivered?
+  end
+
+  def update_normal_time
+    if self.delivered? && self.date_delivered
+      if self.normal_time.nil?
+        self.update_column(normal_time: self.shipping_time_in_days)
+      else
+        self.update_column(normal_time: self.normal_time + ((self.shipping_time_in_days - self.normal_time) / (Order.all.count + 1))) 
+      end
+    end
+  end
+
+
+  def update_timeline
+    puts 'anybody here?'
+    if self.normal_time && !self.delivered?
+      days_elapsed = (Time.now - self.created_at) / 60 / 60 /24
+      if days_elapsed > (self.normal_time * 2)
+        self.timeline = 'very late'
+      elsif days_elapsed > (self.normal_time) 
+        self.timeline = 'not normal'
+      else
+        self.timeline = 'normal'
+      end
+    else
+      self.timeline = 'normal'
     end
   end
 end
