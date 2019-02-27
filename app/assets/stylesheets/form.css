@@ -56,9 +56,31 @@ form.signup-form{
   align-content: center;
   padding: 15px 0px 35px 0px;
   font-weight: 700;
+  min-width: 125px;
 }
 
 .session-btn:hover{
+  background-color: #0c8566;
+  cursor: pointer;
+}
+
+.demo-btn{
+  box-sizing: content-box;
+  background-color: #da7d26;
+  color: white;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-radius: 4px;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding: 15px 0px 35px 0px;
+  font-weight: 700;
+  min-width: 125px;
+}
+
+.demo-btn:hover{
   background-color: #0c8566;
   cursor: pointer;
 }
@@ -145,9 +167,10 @@ header{
   color: white;
   border-radius: 4px;
   font-size: 20px;
-  padding: 15px 15px 15px 15px;
+  padding: 12.5px;
   font-weight: 700;
   text-decoration: none;
+  margin-top: 5px;
 }
 
 .nav-btn:hover{
