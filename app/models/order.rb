@@ -11,6 +11,8 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  user_id            :integer
+#  latitude           :float
+#  longitude          :float
 #
 
 class Order < ApplicationRecord
@@ -18,7 +20,7 @@ class Order < ApplicationRecord
   validates :vendor_id, :address, :delivery_status_id, :user_id, presence: true
 
   geocoded_by :address
-  after_validation :geocode
+  after_validation :geocode, :if => :address_changed?
 
   belongs_to :vendor,
     foreign_key: :vendor_id,
