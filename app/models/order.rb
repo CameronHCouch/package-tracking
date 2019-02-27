@@ -16,6 +16,8 @@
 #
 
 class Order < ApplicationRecord
+  extend Geocoder::Model::ActiveRecord
+  
   validates :order_number, :tracking_number, presence: true, uniqueness: true 
   validates :vendor_id, :address, :delivery_status_id, :user_id, presence: true
 
