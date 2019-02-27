@@ -15,16 +15,12 @@ class DeliveryStatus < ApplicationRecord
   validates_inclusion_of :delivered?, { in: [true, false] }
   validates :timeline, inclusion: { in: ['normal','not normal', 'very late'] }, presence: true
 
-  before_update :update_timeline, :set_date_delivered, :update_avg_time 
+  after_initialize :update_normal_time 
+  before_update :update_timeline, :set_date_delivered
 
   has_one :order
   has_one :vendor, through: :order, source: :vendor
   has_one :user, through: :order, source: :user
-
-  @avg_time = nil
-  @order_count = 0
-
-# TO DO: figure out when callbacks should run to continously update normal_time
 
   def shipping_time_in_days
     (self.date_delivered - self.created_at) / 60 / 60 / 24
@@ -42,16 +38,14 @@ class DeliveryStatus < ApplicationRecord
 
   # if there is no normal time, normal time is amnt it took to ship first item
   # otherwise, add this shipping time to the running average
-  def update_avg_time
+  def update_normal_time
     if self.delivered? && self.date_delivered
-      @order_count += 1
-      if @avg_time.nil?
-        @avg_time = self.shipping_time_in_days
+      if self.normal_time.nil?
+        self.update!(normal_time: self.shipping_time_in_days)
       else
-        @avg_time = @avg_time + ((self.shipping_time_in_days - @avg_time) / @order_count ) 
+        self.update!(normal_time: self.normal_time + ((self.shipping_time_in_days - self.normal_time) / (Order.all.count + 1))) 
       end
     end
-    debugger
   end
 
   def update_timeline
