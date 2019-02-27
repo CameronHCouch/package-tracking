@@ -1,10 +1,10 @@
-Sign In 
-Not a member? <a href="<%= new_user_url %>">Sign Up</a>
-<form action="<%= session_url %>" method="post">
+<aside>Not a member? <a href="<%= new_user_url %>">Sign Up</a></aside>
+<form action="<%= session_url %>" method="post" class="session-form">
+    <h1>Sign In</h1>
     <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
     <label for="username">Username</label>
-    <input type="text" name="user[username]" id="username" value="<%= @user.username %>">
+    <input type="text" name="user[username]" id="username" value="<%= @user.username if @user %>">
     <label for="password">Password </label>
-    <input type="password" name="user[password]" id="password" value="<%= @user.password %>">
-    <input type="submit" value="Sign In">
+    <input type="password" name="user[password]" id="password" value="<%= @user.password if @user %>">
+    <input type="submit" value="Sign In" class="session-btn">
 </form>

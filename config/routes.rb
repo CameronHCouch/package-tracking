@@ -5,5 +5,5 @@ Rails.application.routes.draw do
 
   resources :orders
 
-  root to: 'sessions#new'
+  root to: 'orders#index'
 end

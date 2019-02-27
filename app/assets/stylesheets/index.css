@@ -1,3 +1,7 @@
+body{
+  font-family: Helvetica, sans-serif;
+}
+
 .no_bullet {
   list-style: none;
 }
@@ -8,14 +12,32 @@ ul.order_details{
 }
 
 .red{
-  color: red;
+  background-color: #bb2b2b;
+  color: white;
 }
 
 .orange{
-  color: orange;
+  background-color: orange;
+  color: white;
 }
 
 #map {
     width: 600px;
     height: 400px;
+}
+
+input[type=submit].signout-btn{
+  box-sizing: content-box;
+  background-color: #bb2b2b;
+  width: 100px;
+  color: white;
+  /* margin-top: 17px; */
+  /* margin-bottom: 5px; */
+  border-radius: 4px;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding: 15px 0px 35px 0px;
+  font-weight: 700;
 }
