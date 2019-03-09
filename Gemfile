@@ -57,6 +57,7 @@ group :development do
   gem 'annotate'
   # convert addresses into latitude and longitude for Google Maps
   gem 'geocoder'
+  gem 'bullet'
 end
 
 group :test do

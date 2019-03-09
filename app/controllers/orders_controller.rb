@@ -2,8 +2,7 @@ class OrdersController < ApplicationController
   before_action :ensure_logged_in
 
   def index
-    # debugger
-    @orders = Order.all.where(delivered: false)
+    @orders = current_user.orders.includes(:vendor, :delivery_status)
   end
 
   def show
@@ -21,6 +20,8 @@ class OrdersController < ApplicationController
     vendor = Vendor.find_by(name: params[:order][:vendor])
     unless vendor
       vendor = Vendor.create!(name: params[:order][:vendor])
+      # rescue exceptions for all bang methods
+      # pass error to handler and spit out custom-written message (Sentry)
     end
     @order.vendor_id = vendor.id
     @order.delivery_status_id = DeliveryStatus.create!(normal_time: 3).id;

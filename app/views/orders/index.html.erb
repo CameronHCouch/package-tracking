@@ -2,9 +2,9 @@
 
 <section>
 <% markers = [] %>
-<% unless current_user.orders.empty? %>
+<% unless @orders.empty? %>
   <ul class="no_bullet">
-  <% current_user.orders.each do |order| %>
+  <% @orders.each do |order| %>
     <% unless order.delivery_status.delivered? == true %>
     <% markers.push([order.latitude,order.longitude]) if order.latitude %>
       <li>
